@@ -85,6 +85,11 @@ class FiveThingsFragment : Fragment() {
                     binding.month = getMonth(firstDayOfNewMonth) + " " + getYear(firstDayOfNewMonth)
                 }
             })
+
+            val todayButton = view?.findViewById<TextView>(R.id.today)
+            todayButton?.setOnClickListener {
+                jumpToToday()
+            }
         }
 
         val date = view?.findViewById<TextView>(R.id.current_date)
@@ -100,6 +105,13 @@ class FiveThingsFragment : Fragment() {
         super.onDestroyView()
         eventsLoaded = false
     }
+
+    private fun jumpToToday() {
+        binding.month = getMonth(Date()) + " " + getYear(Date())
+        val compactCalendarView = view?.findViewById<CompactCalendarView>(R.id.compactcalendar_view)
+        compactCalendarView?.setCurrentDate(Date())
+    }
+
 
     //TODO handle when user tries to leave fragment with un-saved changes
 }
